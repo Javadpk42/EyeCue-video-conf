@@ -5,7 +5,6 @@ class NodeMailer implements INodemailer {
     private otps: Map<string, string> = new Map();
 
 
-    // to genereate otp
     generateOTP(): string {
 
         console.log('entered otp')
