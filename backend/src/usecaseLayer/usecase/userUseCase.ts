@@ -7,6 +7,8 @@ import { loginUser } from "./user/loginUser";
 import Ijwt from "../interface/services/Ijwt";
 import IHashPassword from "../interface/services/IHashPassword";
 import INodemailer from "../interface/services/Inodemailer";
+import { forgotPassword } from "./user/forgotPassword";
+import { sendForgetPassOtp } from "./user/sendForgetPassOtp";
 
 export class UserUseCase {
 
@@ -82,6 +84,20 @@ export class UserUseCase {
 
         return emailVerification(this.nodemailer, otp, email)
 
+    }
+    async forgotPassword({email,password}:{email:string,password:string}){
+        return forgotPassword(
+            this.userRepository,
+            this.bycrypt,
+            this.jwt,
+            email,
+            password
+        )
+    }
+
+    
+    async sendForgetPassOtp({ email, username }: { email: string; username: string }) {
+        return sendForgetPassOtp(this.userRepository, this.nodemailer, email, username)
     }
 
 

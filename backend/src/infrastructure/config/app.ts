@@ -19,11 +19,12 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
-// import cookieParser from 'cookie-parser';
 import userRoute from '../routes/userRoute';
+import cookieParser from 'cookie-parser';
 import errorHandler from '../../usecaseLayer/handler/errorHandler';
 // Load environment variables
 dotenv.config();
+console.log('app.ts')
 
 // Creating the Express app
 export const app = express();
@@ -31,7 +32,7 @@ export const app = express();
 // Middleware setup
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-// app.use(cookieParser());
+app.use(cookieParser());
 app.use(cors({ origin: process.env.CLIENT_SERVER, credentials: true }));
 
 

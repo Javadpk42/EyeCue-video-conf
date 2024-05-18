@@ -84,7 +84,7 @@ export default function Hero() {
           <div className="max-w-7xl mx-auto text-center">
             <h2 className="text-3xl text-white font-bold mb-4">Ready to Get Started?</h2>
             {/* Call-to-action button */}
-            <button className="bg-teal-400 text-black  py-3 px-6 rounded-full font-semibold">Sign Up, It's Free</button>
+            <button className="bg-teal-400 text-black  py-3 px-6 rounded-full font-semibold">Let's Get Started</button>
           </div>
         </section>
       </main>

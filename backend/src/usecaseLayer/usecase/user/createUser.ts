@@ -31,7 +31,7 @@ export const createUser = async (
             const token = jwt.createJWT(createNewUser._id as string, createNewUser.email,"register", createNewUser.username)
             console.log('token'+token)
             return {
-                status: 200,
+                status: 200, 
                 success: true,
                 message: `Successfully Registered `,
                 token: token,

@@ -18,6 +18,8 @@ const userusecases = new UserUseCase(
     nodemailer
 )
 
+
 const userAdapter = new UserAdapters(userusecases)
+console.log('injection')
 
 export { userAdapter}

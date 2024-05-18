@@ -16,6 +16,6 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <AppRoutes/>
     </Router>
     </GoogleOAuthProvider>
-  </Provider>,
+  </Provider>
 )
  

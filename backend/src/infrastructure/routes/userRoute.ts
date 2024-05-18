@@ -9,14 +9,13 @@ const router = express.Router()
 
 router.post('/signup',(req:Request,res:Response,next:NextFunction)=>{
     console.log('entered into route')
-
     userAdapter.createUser(req,res,next)
 })
 router.post('/login',(req:Request,res:Response,next:NextFunction)=>{
     
     userAdapter.loginUser(req,res,next)
 
-}) 
+})  
 
 router.post('/sendEmail',(req:Request,res:Response,next:NextFunction)=>{
 
@@ -28,13 +27,22 @@ router.post('/verifyEmail',(req:Request,res:Response,next:NextFunction)=>{
     
 })
 router.post('/googleAuth',(req:Request,res:Response,next:NextFunction)=>{
-    console.log('entered g roteue')
     userAdapter.googleAuth(req,res,next)
 
 })
 router.post('/logout',(req:Request,res:Response,next:NextFunction)=>{
+    console.log('entered g roteue')
+ 
     userAdapter.logout(req,res,next)
  
 })
+router.post('/forgot-password',(req:Request,res:Response,next:NextFunction)=>{
+    userAdapter.forgotPassword(req,res,next)
+})
+
+router.post('/send-Forget-Pass-Otp',(req:Request,res:Response,next:NextFunction)=>{
+    userAdapter.sendforgetPassOtp(req,res,next)
+})
+
 
 export default router

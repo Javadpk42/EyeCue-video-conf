@@ -120,8 +120,55 @@ export class UserAdapters {
 
 
         } catch (error) {
+            next(error) 
+
+        }
+    }
+
+    async forgotPassword(req: Req, res: Res, next: Next) {
+        try {
+
+            const newUser = await this.userusecases.forgotPassword(req.body)
+
+            newUser &&
+                res.cookie("userJwt", newUser.token, {
+                    httpOnly: true,
+                    sameSite: "strict", // Prevent CSRF attacks
+                    maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+                })
+
+            res.status(newUser.status).json({
+                success: newUser.success,
+                message: newUser.message,
+                user: newUser.data
+            })
+
+
+        } catch (error) {
             next(error)
 
         }
     }
+
+
+
+    async sendforgetPassOtp(req: Req, res: Res, next: Next) {
+        try {
+
+            const user = await this.userusecases.sendForgetPassOtp(req.body)
+
+            if (user) {
+                res.status(user.status).json({
+                    success: user.success,
+                    message: user.message
+                })
+            }
+
+        } catch (err) {
+            console.log(err)
+            next(err)
+
+        }
+    }
+
 }

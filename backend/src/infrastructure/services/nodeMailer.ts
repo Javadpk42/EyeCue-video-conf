@@ -3,8 +3,8 @@ import INodemailer from "../../usecaseLayer/interface/services/Inodemailer";
 
 class NodeMailer implements INodemailer {
     private otps: Map<string, string> = new Map();
-
-
+ 
+ 
     generateOTP(): string {
 
         console.log('entered otp')
