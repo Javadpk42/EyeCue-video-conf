@@ -6,6 +6,7 @@ import Otp from "./pages/user/Otp"
 import Forgot from "./pages/user/Forgot"
 import OtpForgot from "./pages/user/OtpForgot"
 import ResetPass from "./pages/user/ResetPass"
+import Premium from "./pages/user/Premium"
 
 const AppRoutes=()=>{
     return(
@@ -17,6 +18,9 @@ const AppRoutes=()=>{
             <Route path='/forgot' element={<Forgot/>}></Route>
             <Route path='/otpforgot' element={<OtpForgot/>}></Route>
             <Route path='/reset-password' element={<ResetPass/>}></Route>
+            <Route path='/premium' element={<Premium/>}></Route>
+
+
 
             <Route path='*' element={<Navigate to="/"/>}></Route>
         </Routes>

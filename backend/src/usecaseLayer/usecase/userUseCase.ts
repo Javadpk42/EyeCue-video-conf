@@ -9,6 +9,11 @@ import IHashPassword from "../interface/services/IHashPassword";
 import INodemailer from "../interface/services/Inodemailer";
 import { forgotPassword } from "./user/forgotPassword";
 import { sendForgetPassOtp } from "./user/sendForgetPassOtp";
+import { createPayment } from "./user/createPayment";
+import IStripe from "../interface/services/IStripe";
+import { confirmPayment } from "./user/confirmPayment";
+import { finalConfirmation } from "./user/finalConfirmation";
+
 
 export class UserUseCase {
 
@@ -16,17 +21,23 @@ export class UserUseCase {
     private readonly jwt: Ijwt;
     private readonly bycrypt: IHashPassword
     private readonly nodemailer: INodemailer
+    private readonly stripe:IStripe
+
 
     constructor(
         userRepository: IUserRepository,
         jwt: Ijwt,
         bycrypt: IHashPassword,
-        nodemailer: INodemailer
+        nodemailer: INodemailer,
+        stripe:IStripe
+
     ) {
         this.userRepository = userRepository
         this.jwt = jwt
         this.bycrypt = bycrypt
         this.nodemailer = nodemailer
+        this.stripe = stripe
+
     }
 
 
@@ -100,6 +111,18 @@ export class UserUseCase {
         return sendForgetPassOtp(this.userRepository, this.nodemailer, email, username)
     }
 
+
+    async createPayment({amount,email,userId}:{ amount:number,email:string,userId:string}){
+        return createPayment(this.stripe,amount,email,userId)
+    }
+    async confirmPayment(req:any){
+        // console.log('the requeset from outer useCase :',req)
+        return confirmPayment(this.stripe,req)
+    }
+
+    async finalConfirmation({email,amount,transactionId,userId}:{email:string,amount:string,transactionId:string,userId:string}){
+        return finalConfirmation(this.userRepository,email,amount,transactionId,userId)
+    }
 
   
 

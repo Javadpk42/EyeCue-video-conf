@@ -171,4 +171,81 @@ export class UserAdapters {
         }
     }
 
+    async payment(req: Req, res: Res, next: Next) {
+
+        try {
+
+            console.log('entered')
+
+            const payment = await this.userusecases.createPayment(req.body)
+
+
+            // console.log('the payment status in controller is :', payment)
+
+
+            res.status(payment.status).json({
+                data: payment.data,
+
+            })
+
+
+        } catch (error) {
+            // console.log('the payment controller error is ', error)
+            next(error)
+
+        }
+    }
+
+
+
+    async webhook(req: Req, res: Res, next: Next) {
+        try {
+            let transactionId;
+
+            // Parse the incoming webhook event
+            const event = req.body;
+            console.log('Webhook entered');
+            console.log(event);
+
+            // Check the type of event
+            switch (event.type) {
+
+
+                case 'checkout.session.completed':
+                    // Handle charge succeeded event
+                    const session = event.data.object;
+                    const metadata = session.metadata;
+                    const email = metadata.email;
+                    const userId = metadata.userId;
+                    const amount = metadata.amount;
+
+                    // console.log('the session is :', session)
+
+
+
+                    transactionId = event.data.object.payment_intent;
+
+                    // console.log('The transaction id is :', transactionId);
+
+                    await this.userusecases.finalConfirmation({ email, amount, transactionId, userId })
+
+
+                    break;
+
+
+
+                default:
+                    console.log(`Unhandled event type: ${event.type}`);
+            }
+
+
+            
+
+            // Respond with a success message
+            res.status(200).json({ received: true });
+        } catch (error) {
+            next(error);
+        }
+    }
+
 }

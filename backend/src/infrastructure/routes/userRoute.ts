@@ -44,5 +44,14 @@ router.post('/send-Forget-Pass-Otp',(req:Request,res:Response,next:NextFunction)
     userAdapter.sendforgetPassOtp(req,res,next)
 })
 
+router.post('/payment',(req:Request,res:Response,next:NextFunction)=>{
+    userAdapter.payment(req,res,next)
+})
+
+
+router.post('/webhook',(req:Request,res:Response,next:NextFunction)=>{
+    userAdapter.webhook(req,res,next)
+})
+
 
 export default router

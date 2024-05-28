@@ -11,6 +11,7 @@ module.exports = {
   theme: {
     fontFamily: {
       sans: ['Almaden Sans', 'Helvetica Neue','Internacional', 'Arial'],
+      krona:["Krona One", "sans-serif"]
     },
     
 
@@ -30,6 +31,7 @@ module.exports = {
       },
       colors: {
         custom: '#0B5CFF',
+        error:'#b22424',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
