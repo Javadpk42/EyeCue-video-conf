@@ -16,10 +16,6 @@ export interface IResponse<T = StoreData | string |null>{
     message?:string;
     data?:T
     token?:string
-
-
-
-
 }
 
 export interface IUserResponse<T = IUser| IUser[]|string>{
@@ -28,7 +24,6 @@ export interface IUserResponse<T = IUser| IUser[]|string>{
     message?: string;
     data?: T;
     token? : string
-
 }
 
 export interface IforgotPassword {

@@ -11,7 +11,7 @@ class StripeService implements IStripe {
     async  createPaymentIntent(
       amount:number,
       email:string,
-      userId:string
+      userId:string 
 
     ):Promise<IResponse> {
       console.log(amount)
@@ -35,8 +35,8 @@ class StripeService implements IStripe {
           },
         ],
         mode: 'payment',
-        success_url: 'http://localhost:5173/premium',
-        cancel_url: 'http://localhost:5173/',
+        success_url: 'http://localhost:5173/user',
+        cancel_url: 'http://localhost:5173/user',
         metadata: {
           email: email,
           userId: userId,

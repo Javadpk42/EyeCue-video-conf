@@ -12,6 +12,7 @@ const userSchema:Schema = new Schema<IUser & Document>({
     isBlocked:{type:Boolean,default: false},
     isVerified:{type:Boolean,default: false},
     isPremium:{type:Boolean,default: false},
+
     
 
 

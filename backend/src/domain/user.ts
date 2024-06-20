@@ -7,5 +7,5 @@ export interface IUser{
     profileImage?:string;
     isBlocked?:Boolean;
     isVerified?:Boolean;
-    isPremium?:Boolean 
+    isPremium?:Boolean ;
 }

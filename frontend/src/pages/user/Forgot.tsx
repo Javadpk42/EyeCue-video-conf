@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import signup from "../../assets/sendEmail.png";
 import axios from 'axios';
 import { signInFailure } from '../../redux/user/userSlice';
+import { sendForgetPasswordOTP } from '../../api/userApi';
+
 
 export default function Forgot() {
   const [formData, setFormData] = useState({});
@@ -22,35 +24,35 @@ export default function Forgot() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { email, username } = formData;
-
+  
     if (!email || !username) {
       setValidationError('Both username and email are required');
       return;
     }
-
+  
     try {
       setLoading(true);
-      const response = await axios.post('http://localhost:3000/api/user/send-Forget-Pass-Otp', { email, username });
-
-      if (response.data.success === false) {
-        dispatch(signInFailure(response.data.message));
+      const success = await sendForgetPasswordOTP(email, username);
+  
+      if (!success) {
+        dispatch(signInFailure('Failed to send OTP'));
+        return;
       }
-
-      if (response.status === 200) {
-        setLoading(false);
-        navigate('/otpforgot');
-      }
+  
+      setLoading(false);
+      navigate('/user/otpforgot');
     } catch (error) {
       dispatch(signInFailure('Failed to send OTP. Please try again.'));
       setLoading(false);
     }
   };
+  
 
   return (
     <div className='h-screen'>
       <div className='border-b-2 py-4'>
         <div className="container mx-auto flex justify-between items-center">
-          <Link to='/' className='text-3xl font-bold tracking-tight text-custom'>
+          <Link to='/user' className='text-3xl font-bold tracking-tight text-custom'>
             EyeCue
           </Link>
         </div>

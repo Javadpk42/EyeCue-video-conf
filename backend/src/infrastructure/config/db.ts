@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 const DB_STRING:string = process.env.MONGO_DB || ""
+console.log('checking'+DB_STRING)
 console.log('db.ts')
 const connectDb = async()=>{
     try {

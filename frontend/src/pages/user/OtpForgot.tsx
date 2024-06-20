@@ -3,6 +3,8 @@ import signup from "../../assets/otp.png";
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
+import { verifyEmailOTP } from '../../api/userApi';
+
 
 export default function OtpForgot() {
   const [otp, setOTP] = useState('');
@@ -15,35 +17,33 @@ export default function OtpForgot() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true); // Set loading state to true while waiting for the response
-
+  
     if (!email || !otp) {
       setValidationError('Both email and OTP are required');
       setLoading(false);
       return;
     }
-
+  
     try {
-      const response = await axios.post('http://localhost:3000/api/user/verifyEmail', {
-        email,
-        otp
-      });
-      console.log(response.data)
-      if (response.data.success === true) {
-        navigate('/reset-password');
+      const success = await verifyEmailOTP(email, otp);
+      console.log(success);
+      if (success) {
+        navigate('/user/reset-password');
       }
-      setLoading(false); // Reset loading state after receiving the response
     } catch (error) {
       console.error('Error verifying OTP:', error);
       setErrorMessage('Failed to verify OTP. Please try again.'); // Set error message if request fails
+    } finally {
       setLoading(false); // Reset loading state after receiving the response
     }
   };
+  
 
   return (
     <div className='h-screen'>
       <div className='border-b-2 py-4'>
         <div className="container mx-auto flex justify-between items-center">
-          <Link to='/' className='text-3xl font-bold tracking-tight text-custom'>
+          <Link to='/user' className='text-3xl font-bold tracking-tight text-custom'>
             EyeCue
           </Link>
         </div>
@@ -97,7 +97,7 @@ export default function OtpForgot() {
 
             <div className='mt-4 text-center'>
               <span>Can't find? </span>
-              <Link to='/signin' className='text-black hover:font-bold'>Click <span className='text-custom'>here</span> to resend</Link>
+              <Link to='/user/signin' className='text-black hover:font-bold'>Click <span className='text-custom'>here</span> to resend</Link>
             </div>
           </form>
         </div>

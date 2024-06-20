@@ -20,8 +20,10 @@ import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import userRoute from '../routes/userRoute';
+import adminRoute from '../routes/adminRoute';
 import cookieParser from 'cookie-parser';
 import errorHandler from '../../usecaseLayer/handler/errorHandler';
+
 // Load environment variables
 dotenv.config();
 console.log('app.ts')
@@ -39,5 +41,7 @@ app.use(cors({ origin: process.env.CLIENT_SERVER, credentials: true }));
 //Routes 
 
 app.use('/api/user',userRoute)
+app.use('/api/admin',adminRoute)
+
 
 app.use(errorHandler)  

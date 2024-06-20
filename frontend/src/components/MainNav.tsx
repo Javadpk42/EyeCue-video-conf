@@ -19,6 +19,8 @@ import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import { signoutSuccess } from '../redux/user/userSlice';
+import { logoutUser } from '../api/userApi';
+
 
 export default function MainNav() {
   const dispatch = useDispatch();
@@ -28,12 +30,13 @@ export default function MainNav() {
 
   const handleLogout = async () => {
     try {
-      await axios.post('http://localhost:3000/api/user/logout', {}, { withCredentials: true });
+      await logoutUser();
       dispatch(signoutSuccess());
     } catch (error) {
       console.error('Logout failed', error);
     }
-  }
+  };
+  
   return (
     <div>
       {currentUser ? (
@@ -45,7 +48,7 @@ export default function MainNav() {
           Logout
         </Button>
       ) : (
-        <Link to='/signup'>
+        <Link to='/user/signup'>
           <Button variant='destructive' className='font-bold hover:text-custom hover:bg-white bg-custom rounded-full'>
             Sign Up Free
           </Button>
